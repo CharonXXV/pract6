@@ -1,3 +1,6 @@
+import ColorForm.PaintForm;
+import ShapeForm.ShapeForm;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,10 +17,12 @@ public class TitlesPanel extends JPanel implements ActionListener {
    private Timer animation;
    private boolean is_done = true;
    private int start_angle = 0;
-   private int shape;
+   private  ShapeForm shapeForm;
+   private PaintForm paintForm;
 
-   public TitlesPanel(int _shape) {
-      this.shape = _shape;
+   public TitlesPanel(ShapeForm shapeForm, PaintForm paintForm) {
+      this.shapeForm = shapeForm;
+      this.paintForm = paintForm;
       (this.animation = new Timer(50, this)).setInitialDelay(50);
       this.animation.start();
    }
@@ -36,7 +41,7 @@ public class TitlesPanel extends JPanel implements ActionListener {
       Insets insets = this.getInsets();
       int w = size.width - insets.left - insets.right;
       int h = size.height - insets.top - insets.bottom;
-      ShapeFactory shape = new ShapeFactory(this.shape);
+      ShapeFactory shape = new ShapeFactory(this.shapeForm, this.paintForm);
       this.g2d.setStroke(shape.stroke);
       this.g2d.setPaint(shape.paint);
       double angle = (double)(this.start_angle++);
